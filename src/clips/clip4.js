@@ -6,17 +6,16 @@ class SortArray {
 
         // CONSTANTS FOR THE AGENT TO TUNE
         this.glowSize = 10;
-        this.rectWidth_ = 20;
-        this.verticalPadding = 100;
+        this.rectWidth_ = 24;
+        this.gapSize = 94;
+        this.verticalPadding = 90;
         this.YELLOW = [1,1,0];
         this.RED = [1,0,0];
         this.GREEN = [0,1,0];
         this.BLACK = [0,0,0];
-        this.GRAY = [0.5,0.5,0.5];
+        this.GRAY = [0,0.5,0.5];
         // END OF CONSTANTS FOR THE AGENT TO TUNE
-        
-        
-        this.gapSize = WIDTH / (n+1);
+
         this.heightStepSize = (HEIGHT - this.verticalPadding * 2) / n;
 
         this.blackDuration = 0.2;
@@ -48,7 +47,11 @@ class SortArray {
 
     value(i) { return this.items[i].value; }
 
-    rectX(i) { return this.gapSize * (i + 1) - this.rectWidth_ / 2; }
+    rectX(i) {
+        const n = this.items.length;
+        const firstCenter = (WIDTH - (n - 1) * this.gapSize) / 2;
+        return firstCenter + i * this.gapSize - this.rectWidth_ / 2;
+    }
     rectY(i) { return - this.rectHeight(i) + HEIGHT - this.verticalPadding; }
     rectWidth(i) { return this.rectWidth_; }
     rectHeight(i) { return this.items[i].value * this.heightStepSize; }
