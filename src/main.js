@@ -54,12 +54,14 @@ function loadScript(src) {
 }
 
 function renderScene(scene) {
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    playScene(scene, function () {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    for (const object of scene.objects) {
-        object.draw(ctx);
-    }
+        for (const object of scene.objects) {
+            object.draw(ctx);
+        }
+    });
 }
 
 function showMessage(message) {
