@@ -4,11 +4,20 @@ class SortArray {
 
         this.scene = scene;
 
+        // CONSTANTS FOR THE AGENT TO TUNE
         this.glowSize = 10;
         this.rectWidth_ = 20;
         this.verticalPadding = 100;
-        this.heightStepSize = (HEIGHT - this.verticalPadding * 2) / n;
+        this.YELLOW = [1,1,0];
+        this.RED = [1,0,0];
+        this.GREEN = [0,1,0];
+        this.BLACK = [0,0,0];
+        this.GRAY = [0.5,0.5,0.5];
+        // END OF CONSTANTS FOR THE AGENT TO TUNE
+        
+        
         this.gapSize = WIDTH / (n+1);
+        this.heightStepSize = (HEIGHT - this.verticalPadding * 2) / n;
 
         this.blackDuration = 0.2;
         this.swapDuration = 0.2;
@@ -23,7 +32,7 @@ class SortArray {
             const y = this.glowY(i);
             const width = this.glowWidth(i);
             const height = this.glowHeight(i);
-            const glow = scene.rectangle(x, y, width, height, "black");
+            const glow = scene.rectangle(x, y, width, height, this.BLACK);
             this.items[i].glow = glow;
         }
 
@@ -32,7 +41,7 @@ class SortArray {
             const y = this.rectY(i);
             const width = this.rectWidth(i);
             const height = this.rectHeight(i);
-            const rect = scene.rectangle(x, y, width, height, "green");
+            const rect = scene.rectangle(x, y, width, height, this.GREEN);
             this.items[i].rect = rect;
         }
     }
@@ -50,31 +59,31 @@ class SortArray {
     glowWidth(i) { return this.rectWidth(i) + this.glowSize * 2; }
 
     glowOn(timeline, i) {
-        timeline.transition(this.items[i].glow, "color", 0, null, "yellow");
+        timeline.transition(this.items[i].glow, "color", 0, null, this.YELLOW);
     }
     glowOff(timeline, i) {
-        timeline.transition(this.items[i].glow, "color", 0, null, "black");
+        timeline.transition(this.items[i].glow, "color", 0, null, this.BLACK);
     }
 
     darken(timeline, i) {
-        timeline.transition(this.items[i].rect, "color", 0, null, "gray");
+        timeline.transition(this.items[i].rect, "color", 0, null, this.GRAY);
     }
     undarken(timeline, i) {
-        timeline.transition(this.items[i].rect, "color", 0, null, "red");
+        timeline.transition(this.items[i].rect, "color", 0, null, this.RED);
     }
 
     red(timeline, i) {
-        timeline.transition(this.items[i].rect, "color", 0, null, "red");
+        timeline.transition(this.items[i].rect, "color", 0, null, this.RED);
     }
     green(timeline, i) {
-        timeline.transition(this.items[i].rect, "color", 0, null, "green");
+        timeline.transition(this.items[i].rect, "color", 0, null, this.GREEN);
     }
 
     black(timeline, i) {
-        timeline.transition(this.items[i].rect, "color", this.blackDuration, "green", "black");
+        timeline.transition(this.items[i].rect, "color", this.blackDuration, this.GREEN, this.BLACK);
     }
     unblack(timeline, i) {
-        timeline.transition(this.items[i].rect, "color", this.blackDuration, "black", "red");
+        timeline.transition(this.items[i].rect, "color", this.blackDuration, this.BLACK, this.RED);
     }
 
     swap(timeline, i, j) {

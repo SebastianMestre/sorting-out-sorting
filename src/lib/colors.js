@@ -2,6 +2,10 @@ const colorCanvas = document.createElement("canvas");
 const colorContext = colorCanvas.getContext("2d");
 
 function normalizeColor(color) {
+    if (color instanceof Array) {
+        return color;
+    }
+
     colorContext.fillStyle = "#010101";
     const firstProbe = colorContext.fillStyle;
     colorContext.fillStyle = color;
