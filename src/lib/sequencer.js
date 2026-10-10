@@ -15,12 +15,12 @@ function playScene(scene, draw) {
 
 function applyTransitions(scene, time) {
     for (const transition of scene.transitions) {
-        if (transition.start > time) {
+        if (transition.startTime > time) {
             continue;
         }
 
-        const duration = transition.end - transition.start;
-        let progress = duration <= 0 ? 1 : (time - transition.start) / duration;
+        const duration = transition.endTime - transition.startTime;
+        let progress = duration <= 0 ? 1 : (time - transition.startTime) / duration;
         if (progress < 0) {
             progress = 0;
         }
@@ -28,7 +28,15 @@ function applyTransitions(scene, time) {
             progress = 1;
         }
 
-        transition.object[transition.key] = transitionValue(transition.initial, transition.final, progress);
+        if (transition.initialValue == null) {
+            transition.initialValue = transition.object[transition.key];
+        }
+
+        if (transition.key === "color") {
+            transition.object.color = lerpColor(transition.initialValue, transition.finalValue, progress);
+        } else {
+            transition.object[transition.key] = transitionValue(transition.initialValue, transition.finalValue, progress);
+        }
     }
 }
 

@@ -5,13 +5,13 @@ class TextObject {
         this.y = y;
         this.size = size;
         this.font = font;
-        this.color = color;
+        this.color = normalizeColor(color);
         this.text = text;
     }
 
     draw(ctx) {
         ctx.font = `${this.size}px ${this.font}`;
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = serializeColor(this.color);
         ctx.textBaseline = "top";
         ctx.fillText(this.text, this.x, this.y);
     }

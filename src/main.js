@@ -35,8 +35,11 @@ function loadAndRender(number) {
 
         try {
             renderScene(clip());
+            console.log("Rendered clip " + number);
         } catch (error) {
             showMessage(error.message);
+            console.error(error);
+            console.error(error.stack);
         }
     }).catch(function () {
         showMessage("Could not load clip " + number);

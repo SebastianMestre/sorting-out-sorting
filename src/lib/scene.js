@@ -11,8 +11,14 @@ class Scene {
         return textObject;
     }
 
-    transition(object, key, start, end, initial, final) {
-        const transition = new Transition(object, key, start, end, initial, final);
+    rectangle(x, y, width, height, color) {
+        const rectangle = new Rectangle(this, x, y, width, height, color);
+        this.objects.push(rectangle);
+        return rectangle;
+    }
+
+    transition(object, key, startTime, endTime, initialValue, finalValue) {
+        const transition = new Transition(object, key, startTime, endTime, initialValue, finalValue);
         this.transitions.push(transition);
         return transition;
     }
